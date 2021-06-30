@@ -1,0 +1,40 @@
+#######################################
+# Syntax Coloring Map
+#######################################
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+uintDiff	KEYWORD1
+DUCO	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+get_DUCOID	KEYWORD2
+blink	KEYWORD2
+get_result	KEYWORD2
+get_difficulty	KEYWORD2
+get_hashrate	KEYWORD2
+get_shares	KEYWORD2
+get_lastblockhash	KEYWORD2
+get_newblockhash	KEYWORD2
+get_feedback	KEYWORD2
+get_server_ver	KEYWORD2
+get_host	KEYWORD2
+change_port	KEYWORD2
+get_port	KEYWORD2
+get_lastmsg	KEYWORD2
+get_difftier	KEYWORD2
+get_libver	KEYWORD2
+ducos1a	KEYWORD2
+server_con	KEYWORD2
+request	KEYWORD2
+feedback	KEYWORD2
+recv_job	KEYWORD2
+handle	KEYWORD2
+
+######################################
+# Constants (LITERAL1)
+######################################
+job_maxsize	LITERAL1
+SHA1_HASH_LEN	LITERAL1

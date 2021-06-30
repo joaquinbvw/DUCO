@@ -1,0 +1,27 @@
+{
+  "name": "DUCO",
+  "keywords": "duino-coin, duco, miner, cryptocurrency, sha1, kolka",
+  "description": "The only coin that can be mined with Computers, Raspberry Pis, Arduinos, ESP boards and many more.",
+  "homepage": "https://duinocoin.com/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/revoxhere/duino-coin.git"
+  },
+  "version": "2.53",
+  "authors": {
+    "name": "@revoxhere",
+    "url": "https://github.com/revoxhere/"
+    "name": "@JoyBed",
+    "url": "https://github.com/JoyBed/"
+    "name": "@joaquinbvw",
+    "url": "https://github.com/joaquinbvw/"
+  },
+  "exclude": [
+    ".github/*",
+    "extras/*",
+    "tools/*"
+  ],
+  "frameworks": "*",
+  "platforms": "*"
+  "examples": "examples/*/*.ino"
+}

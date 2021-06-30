@@ -1,7 +1,7 @@
 # DUCO
 
 Fork for Duino-Coin Arduino library based on the Arduino sketches on the official repository. Main official repository: https://github.com/revoxhere/duino-coin
-This library supports most Arduino boards. This repository has been created in order to test, fix and modify the library before making it official, I believe revox wants this to be official but if we want to include it on the main repository it will change the directory tree. Here is the list of architectures it supports:
+This repository has been created in order to test, fix and modify the library before making it official, I believe revox wants this to be official but if we want to include it on the main repository it will change the directory tree. This library supports most Arduino boards, here is the list of architectures it supports:
 
 - AVR based boards
 - Teensy based boards

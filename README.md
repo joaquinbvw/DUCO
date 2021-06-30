@@ -19,7 +19,7 @@ I've tried to maintain the main code logic of the sketches and mix everything in
 
 Here is a quick explanation of each function member:
 
-## Global functions for all Stream devices
+## Global functions for all Stream objects
 
 ### DUCO(uint8_t led_pin = LED_BUILTIN, String ducouser = "", String rigname = "")
 
@@ -73,7 +73,7 @@ Receive the data necessary to calculate a job (lastblockhash, newblockhash and d
 
 Handle the job calculation and send the result through the Stream object.
 
-## Functions exclusive to network devices (WiFi and Ethernet)
+## Functions exclusive to network objects (WiFi and Ethernet)
 
 ### float get_hashrate()
 

@@ -21,96 +21,96 @@ Here is a quick explanation of each function member:
 
 ## Global functions for all Stream objects
 
-### DUCO(uint8_t led_pin = LED_BUILTIN, String ducouser = "", String rigname = "")
+#### DUCO(uint8_t led_pin = LED_BUILTIN, String ducouser = "", String rigname = "")
 
 This is the constructor of the object, it has some predefined arguments in case the user doesn't need to include them, for instance the Serial miners don't need any the ducouser and the rigname.
 
-### void get_DUCOID()
+#### void get_DUCOID()
 
 Just to get the unique ID of the microcontroller. This doesn't return the ID, it is just stored inside the object. Also this function needs to be called on the setup section of the sketch, it is actually called inside the constructor but for some reason a lot of architectures don't like that and they want to be called on the actual sketch. Maybe someone can fix that, I'm not sure if it's possible.
 
-### void blink(uint8_t count, uint8_t led_pin = LED_BUILTIN)
+#### void blink(uint8_t count, uint8_t led_pin = LED_BUILTIN)
 
 I have included this function that is defined on the ESP8266 sketch because I like how it handles the blinks of the led, we can give the function how many times we want the led to blink. This function is called inside other functions of the class but for 
 
-### uintDiff get_result()
+#### uintDiff get_result()
 
 This function just returns the last result calculated from a job. uintDiff is a data type that can be uint8_t for AVR 8-bit devices and uint16_t for the rest of architectures.
 
-### uintDiff get_difficulty()
+#### uintDiff get_difficulty()
 
 This function just returns the current difficulty obtained.
 
-### String get_lastblockhash()
+#### String get_lastblockhash()
 
 Returns the latest lastblockhash.
 
-### String get_newblockhash()
+#### String get_newblockhash()
 
 Returns the latest newblockhash.
 
-### String get_lastmsg()
+#### String get_lastmsg()
 
 Returns the last String object read by the class on any of its member functions.
 
-### String get_difftier()
+#### String get_difftier()
 
 Returns the difficulty tier associated with the current architecture.
 
-### String get_libver()
+#### String get_libver()
 
 Returns the library version.
 
-### uintDiff ducos1a()
+#### uintDiff ducos1a()
 
 Implements the SHA1 loop calculation. In order to make fair calculations of hashrate I have moved the initialization of the SHA1 algorithm to the member function recv_job.
 
-### bool recv_job(Stream& duco_stream)
+#### bool recv_job(Stream& duco_stream)
 
 Receive the data necessary to calculate a job (lastblockhash, newblockhash and difficulty) and also implement the initialization of the SHA1 algorithm.
 
-### void handle(Stream& duco_stream)
+#### void handle(Stream& duco_stream)
 
 Handle the job calculation and send the result through the Stream object.
 
 ## Functions exclusive to network objects (WiFi and Ethernet)
 
-### float get_hashrate()
+#### float get_hashrate()
 
 Returns the hashrate of the last job calculated.
 
-### uint32_t get_shares()
+#### uint32_t get_shares()
 
 Returns the number of the shares or jobs calculated.
 
-### String get_feedback()
+#### String get_feedback()
 
 Returns the string that the server sends as feedback after the device sends the result.
 
-### String get_server_ver()
+#### String get_server_ver()
 
 Returns the server version sent by the server.
 
-### String get_host()
+#### String get_host()
 
 Returns the address or URL of the Duino-Coin server.
 
-### void change_port()
+#### void change_port()
 
 It increments the index of the ports array so the object can use another port on the next connection.
 
-### uint16_t get_port()
+#### uint16_t get_port()
 
 Returns the current port in use.
 
-### bool server_con(WiFiClient& duco_stream) OR bool server_con(EthernetClient& duco_stream)
+#### bool server_con(WiFiClient& duco_stream) OR bool server_con(EthernetClient& duco_stream)
 
 It tries to connect to the server and waits for the response containing the version of the server.
 
-### bool request(WiFiClient& duco_stream) OR bool request(EthernetClient& duco_stream)
+#### bool request(WiFiClient& duco_stream) OR bool request(EthernetClient& duco_stream)
 
 It makes a request for a new job but doesn't wait for the response in this function.
 
-### bool feedback(WiFiClient& duco_stream) OR bool feedback(EthernetClient& duco_stream)
+#### bool feedback(WiFiClient& duco_stream) OR bool feedback(EthernetClient& duco_stream)
 
 It waits for the feedback from the server. This needs to be called after the result of a job is sent to the server.

@@ -11,7 +11,7 @@ This repository has been created in order to test, fix and modify the library be
 - AVRMega based boards
 - Raspberry Pi Pico
 
-Any board or architecture not mentioned on the list will not be supported and will not compile, it should show an error message on the Arduino IDE.
+Any board or architecture not mentioned on the list will not be supported and will not compile, it should show an error message on the Arduino IDE. Also, at the moment there are three examples implemented; the Serial_miner, ESP32_example and the ESP8266_example. I'm planning to include a generic Ethernet miner example and also a generic WiFi miner example and maybe another I2C miner example but I believe this will take me some time, maybe a couple of weeks, if anyone want to do it please feel free to do that. Just let me know before making a pull request.
 
 ## For developers
 

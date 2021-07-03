@@ -84,8 +84,11 @@ const uint8_t job_maxsize = 104; // 40+40+20+3 is the maximum size of a job
 const uint16_t legacy_port = 2811;
 const uint16_t wallet_port = 2812;
 const uint16_t pc_mining_port = 2813;
+const uint16_t pc_mining_port2 = 2816;
 const uint16_t avr_port = 2814;
 const uint16_t esp_port = 2815;
+const uint16_t esp8266_port = 2825;
+const uint16_t esp32_port = 2820;
 const uint16_t websocket_port = 15808;
 const uint16_t rest_api_port = 80;
 //const char * duco_host = "51.15.127.80"; // Static server IP
@@ -142,10 +145,9 @@ class DUCO
     uintDiff _ducosresult = 0;
     uint8_t _job[job_maxsize];
     const char * _lib_ver = "2.3";
-    #if defined(ARDUINO_ARCH_ESP32)
-    uint8_t _hash_bytes[SHA1_HASH_LEN];
-    #elif defined(ARDUINO_ARCH_ESP8266)
-    String _hash_bytes = "";
+    #if defined(ARDUINO_ARCH_ESP32) || defined(ARDUINO_ARCH_ESP8266)
+    uint8_t _hash_bytes[20];
+	String _hash1 = "";
     #else
     uint8_t *_hash_bytes;
     #endif
@@ -156,7 +158,7 @@ class DUCO
     String _rigname = "";
     String _feedback = "";
     float _hashrate = 0.0;
-    uint16_t _all_ports[7] = {pc_mining_port,esp_port,avr_port,legacy_port,websocket_port,wallet_port,rest_api_port};
+    uint16_t _all_ports[10] = {esp8266_port,esp32_port,esp_port,avr_port,pc_mining_port,pc_mining_port2,legacy_port,wallet_port,websocket_port,rest_api_port};
     uint8_t _port_counter = 0;
 	const char * _duco_host = "51.15.127.80"; // Static server IP
 	const uint16_t _con_timeout = 30000; // connection timeout in milliseconds

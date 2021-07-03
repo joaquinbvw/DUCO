@@ -113,29 +113,28 @@ uintDiff DUCO::ducos1a()
   if (_difficulty > 655)
     return 0;
   #endif
-  #if defined(ARDUINO_ARCH_ESP32)
-  String hash1 = "";
+  #if defined(ARDUINO_ARCH_ESP32) || defined(ARDUINO_ARCH_ESP8266)
+  _hash1 = "";
   uint8_t payloadLength = 0;
   #endif
   for (uintDiff ducos1res = 0; ducos1res < _diff; ducos1res++)
   {
     #if defined(ARDUINO_ARCH_ESP32)
-    hash1 = _lastblockhash + String(ducos1res);
-	payloadLength = hash1.length();
-    esp_sha(SHA1, (const unsigned char*)hash1.c_str(), payloadLength, _hash_bytes);
+    _hash1 = _lastblockhash + String(ducos1res);
+	payloadLength = _hash1.length();
+    esp_sha(SHA1, (const unsigned char*)_hash1.c_str(), payloadLength, _hash_bytes);
     #elif defined(ARDUINO_ARCH_ESP8266)
-    _hash_bytes = SHA1::hash(_lastblockhash + String(ducos1res));
+	yield();
+    _hash1 = _lastblockhash + String(ducos1res);
+	payloadLength = _hash1.length();
+    SHA1::hash((const unsigned char*)_hash1.c_str(), payloadLength, _hash_bytes);
     #else
     Sha1.init();
     Sha1.print(_lastblockhash + String(ducos1res));
     // Get SHA1 result
     _hash_bytes = Sha1.result();
     #endif
-    #ifdef ARDUINO_ARCH_ESP8266
-    if (_hash_bytes == _newblockhash)
-    #else
-    if (memcmp(_hash_bytes, _job, SHA1_HASH_LEN) == 0)
-    #endif
+    if (memcmp(_hash_bytes, _job, 20) == 0)
     {
       blink(BLINK_SHARE_FOUND);
       // If expected hash is equal to the found hash, return the result
@@ -253,8 +252,8 @@ bool DUCO::server_con(EthernetClient& duco_stream)
 {
   _lastmsg = "";
   _shares = 0; // Share variable
-  duco_stream.setTimeout(1);
-  duco_stream.flush();
+  //duco_stream.setTimeout(1);
+  //duco_stream.flush();
   yield();
   if (!duco_stream.connected()) {
     // Trying to connect to the server
@@ -271,7 +270,7 @@ bool DUCO::server_con(EthernetClient& duco_stream)
   	    _port_counter = (_port_counter+1)%(sizeof(_all_ports)/sizeof(uint16_t));
         return false;
 	  }
-  }
+  }	
   // Checking if there is data available
   while(!duco_stream.available()){
     yield();
@@ -304,6 +303,7 @@ bool DUCO::request(EthernetClient& duco_stream)
     return false;
   delay(50);
   yield();
+  return true;
 }
 
 #if defined(WIFI_H) || defined(WiFi_h)

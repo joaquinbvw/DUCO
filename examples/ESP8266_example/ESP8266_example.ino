@@ -136,10 +136,10 @@ void VerifyWifi() {
 }
 
 void handleSystemEvents(void) {
+  lwdtFeed();
   VerifyWifi();
   ArduinoOTA.handle();
   yield();
-  lwdtFeed();
 }
 
 bool max_micros_elapsed(unsigned long current, unsigned long max_elapsed) {
@@ -210,10 +210,11 @@ void loop() {
     }
     handleSystemEvents();
     Serial.println("TASK" + String(task_num) + " Job received: " + duco.get_lastblockhash() + " " + duco.get_newblockhash() + " " + String(duco.get_difficulty()));
-    Serial.println("TASK" + String(task_num) + " Starting hash calculation.");
+    Serial.println("TASK" + String(task_num) + " Starting hash calculation. Free RAM: "+String(ESP.getFreeHeap()));
+    handleSystemEvents();
     duco.handle(client);
     handleSystemEvents();
-    Serial.println("TASK" + String(task_num) + " Result calculated is " + String(duco.get_result()));
+    Serial.println("TASK" + String(task_num) + " Result calculated is " + String(duco.get_result()) + ". Free RAM: " + String(ESP.getFreeHeap()));
     Serial.println("TASK" + String(task_num) + " Posting result and waiting for feedback.");
     if(!duco.feedback(client)) {
       Serial.println("TASK" + String(task_num) + " Failed receiving feedback");
@@ -222,8 +223,9 @@ void loop() {
     }
     request_counter = 0;
     handleSystemEvents();
-    Serial.println("TASK" + String(task_num) + " " + duco.get_feedback() + " share #" + String(duco.get_shares()) + " (" + String(duco.get_result()) + ")" + " Hashrate: " + String(duco.get_hashrate()));
+    Serial.println("TASK" + String(task_num) + " " + duco.get_feedback() + " share #" + String(duco.get_shares()) + " (" + String(duco.get_result()) + ")" + " Hashrate: " + String(duco.get_hashrate()) + " Free RAM: " + String(ESP.getFreeHeap()));
   }
+  handleSystemEvents();
   Serial.println("TASK" + String(task_num) + " Not connected. Restarting");
   client.flush();
   client.stop();
